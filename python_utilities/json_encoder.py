@@ -1,13 +1,14 @@
 import textwrap
 import numpy as np 
 import json
-from typing import LiteralString 
+from typing_extensions import LiteralString 
+import os
 
 class my_prettier(json.JSONEncoder):
     WIDTH = 100
 
     # BUG incompatible overriding
-    def iterencode(self, o, _one_shot:bool = False) -> LiteralString: # Iterator[str]
+    def iterencode(self, o, _one_shot:bool = False): #-> LiteralString: # Iterator[str]
         if self.ensure_ascii:
             str_encoder = json.encoder.encode_basestring_ascii
         else:
@@ -47,7 +48,7 @@ class my_prettier(json.JSONEncoder):
             elif isinstance(o, dict):
                 return parse_dict(o, current_indent_level + 1, indent, item_separator, key_separator, offset)
             elif isinstance(o, np.ndarray):
-                return parse_list(o.to_list(), current_indent_level + 1, indent, item_separator, key_separator, offset)
+                return parse_list(o.tolist(), current_indent_level + 1, indent, item_separator, key_separator, offset)
             elif isinstance(o, np.integer):
                 return int.__repr__(int(o))
             else:
@@ -101,16 +102,16 @@ class my_prettier(json.JSONEncoder):
                             parsed_buf += (item_separator + "\n" + elements_indent).join(sub_elements)
                     assert root_indent is not None
                     parsed_buf += "\n" + root_indent
-                if not same_line:
-                    assert elements_indent is not None
-                    parsed_buf = "\n" + elements_indent
-                    parsed_buf += (item_separator + "\n" + elements_indent).join(sub_elements)
-                    assert root_indent is not None
-                    parsed_buf += "\n" + root_indent
-                
-                parsed_buf = "[" + parsed_buf + "]"
+            if not same_line:
+                assert elements_indent is not None
+                parsed_buf = "\n" + elements_indent
+                parsed_buf += (item_separator + "\n" + elements_indent).join(sub_elements)
+                assert root_indent is not None
+                parsed_buf += "\n" + root_indent
+                    
+            parsed_buf = "[" + parsed_buf + "]"
 
-                return parsed_buf
+            return parsed_buf
             
         def parse_dict(dct, current_indent_level, indent, item_separator, key_separator, offset):
             if not dct:
@@ -156,9 +157,11 @@ class my_prettier(json.JSONEncoder):
 
 
 def main():
-    
+    folder_name = "python_utilities"
     json_name = "output_example.json"
-    json_input = "example.json"
+    json_input_filename = "example.json"
+    json_input = os.path.join(folder_name, json_input_filename)
+    json_output = os.path.join(folder_name, json_input_filename)
 
     with open(json_input, "r") as input_json:
         obj = json.load(input_json)
