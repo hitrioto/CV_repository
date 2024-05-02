@@ -1,12 +1,10 @@
 import json
-import os
-from collections import defaultdict
-from typing import Any, Dict
-
+from typing import Any, Dict, List
 from jinja2 import Template
+from collections import defaultdict
+import os 
 
-class_definitions = defaultdict(str)
-
+class_definitions = defaultdict(str)  # To hold all class definitions
 
 def infer_type(value, field_name):
     if isinstance(value, dict):
@@ -27,7 +25,6 @@ def infer_type(value, field_name):
     else:
         return "str"
 
-
 def process_class(data: Dict[str, Any], class_name: str):
     fields = {key: infer_type(value, key) for key, value in data.items()}
     template_str = """\
@@ -35,11 +32,10 @@ def process_class(data: Dict[str, Any], class_name: str):
 class {{ class_name }}:
 {%- for field, type in fields.items() %}
     {{ field }}: {{ type }}
-{% endfor %}
+{%- endfor %}
 """
     template = Template(template_str)
     class_definitions[class_name] = template.render(class_name=class_name, fields=fields)
-
 
 def generate_dataclass(json_data: str, class_name: str) -> str:
     data = json.loads(json_data)
@@ -47,7 +43,6 @@ def generate_dataclass(json_data: str, class_name: str) -> str:
 
     all_classes = "\n\n".join(class_definitions.values())
     return all_classes
-
 
 # Sample JSON data with nested structures
 json_data = """
@@ -66,16 +61,17 @@ json_data = """
   }
 }
 """
+
+# Generate dataclass Python code
+
 folder_name = "python_utilities"
 input_file = os.path.join(folder_name, "example.json")
 read_from_input_file = True
 
 # Generate dataclass Python code
 if read_from_input_file:
-    with open(input_file, "r") as json_input:
-        data = json.load(json_input)
-        print(data)
-        print(type(data))
+    with open(input_file, "r") as file:
+        data = file.read()
         python_code = generate_dataclass(str(data), "TestClass")
 else:
     python_code = generate_dataclass(json_data, "TestClass")
@@ -90,4 +86,4 @@ with open(output_file, "w") as generated_py:
     generated_py.write("from typing import List\n")
     generated_py.write("from dataclasses import dataclass\n\n\n")
     generated_py.write(python_code)
-    generated_py.write("\n")
+
