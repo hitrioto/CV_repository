@@ -1,6 +1,7 @@
 import json
 from typing import Any, List, Optional
 
+
 def get_object_by_keys(json_filename: str, keys: List[str]) -> Optional[List[Any]]:
     # Load the JSON data from the file
     with open(json_filename, "r") as file:

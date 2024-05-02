@@ -2,3 +2,8 @@ pandas
 numpy
 
 pydantic
+
+black
+isort
+
+spyder

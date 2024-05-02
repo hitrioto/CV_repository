@@ -1,13 +1,15 @@
-from dataclasses import dataclass, fields, asdict
-from pydantic import BaseModel, create_model, ValidationError
-from typing import List, Any
 import json
+from dataclasses import asdict, dataclass, fields
+from typing import Any, List
+
 from json_encoder import my_prettier
+from pydantic import BaseModel, ValidationError, create_model
 
 
 def dataclass_to_pydantic(dc):
     field_definitions = {f.name: (f.type, ...) for f in fields(dc)}
     return create_model(dc.__name__ + "Pydantic", **field_definitions)
+
 
 def dump_json(data, filename):
     with open(filename, "w") as file:
