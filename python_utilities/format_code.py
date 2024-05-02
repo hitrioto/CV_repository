@@ -7,6 +7,7 @@ def run_formatter():
     print("Running black...")
     subprocess.run(["black", ".", "--line-length=120"], check=True)
 
+    subprocess.run(["git", "add", "."], check=True)
 
 if __name__ == "__main__":
     run_formatter()
