@@ -1,5 +1,6 @@
 import subprocess
 
+
 def format_code_with_isort_and_black():
     # Define the commands as lists
     isort_command = ["isort", "."]
@@ -24,6 +25,7 @@ def format_code_with_isort_and_black():
     else:
         print("black failed:")
         print(result_black.stderr)
+
 
 if __name__ == "__main__":
     format_code_with_isort_and_black()

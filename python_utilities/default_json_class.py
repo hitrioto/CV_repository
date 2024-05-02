@@ -8,9 +8,6 @@ from jinja2 import Template
 class_definitions = defaultdict(str)
 
 
-
-
-
 def infer_type(value, field_name):
     if isinstance(value, dict):
         class_name = f"{field_name.capitalize()}Class"
