@@ -1,10 +1,12 @@
 import json
-from typing import Any, Dict, List
-from jinja2 import Template
+import os
 from collections import defaultdict
-import os 
+from typing import Any, Dict, List
+
+from jinja2 import Template
 
 class_definitions = defaultdict(str)  # To hold all class definitions
+
 
 def infer_type(value, field_name):
     if isinstance(value, dict):
@@ -25,6 +27,7 @@ def infer_type(value, field_name):
     else:
         return "str"
 
+
 def process_class(data: Dict[str, Any], class_name: str):
     fields = {key: infer_type(value, key) for key, value in data.items()}
     template_str = """\
@@ -37,12 +40,14 @@ class {{ class_name }}:
     template = Template(template_str)
     class_definitions[class_name] = template.render(class_name=class_name, fields=fields)
 
+
 def generate_dataclass(json_data: str, class_name: str) -> str:
     data = json.loads(json_data)
     process_class(data, class_name)
 
     all_classes = "\n\n".join(class_definitions.values())
     return all_classes
+
 
 # Sample JSON data with nested structures
 json_data = """
@@ -86,4 +91,3 @@ with open(output_file, "w") as generated_py:
     generated_py.write("from typing import List\n")
     generated_py.write("from dataclasses import dataclass\n\n\n")
     generated_py.write(python_code)
-
