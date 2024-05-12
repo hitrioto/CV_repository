@@ -26,6 +26,7 @@ fi
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
+        # current path_to
         print("Usage: python setup_pre_commit_hook.py <path_to_format_code_script>")
         print("Should enter the second argument. Exiting now.")
         sys.exit(1)

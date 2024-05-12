@@ -2,7 +2,7 @@ import subprocess
 
 
 def format_code_with_isort_and_black():
-    # Define the commands as lists
+    # Define the commands
     isort_command = ["isort", "."]
     black_command = ["black", ".", "--line-length", "120"]
 
@@ -25,6 +25,9 @@ def format_code_with_isort_and_black():
     else:
         print("black failed:")
         print(result_black.stderr)
+
+    print("Adding formatting updates")
+    subprocess.run(["git", "add", "."], check=True)
 
 
 if __name__ == "__main__":

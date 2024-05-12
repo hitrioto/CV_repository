@@ -166,14 +166,14 @@ class my_prettier(json.JSONEncoder):
 
 def main():
     folder_name = "python_utilities"
-    json_name = "output_example.json"
+    json_output_name = "output_example.json"
     json_input_filename = "example.json"
     json_input = os.path.join(folder_name, json_input_filename)
-    json_output = os.path.join(folder_name, json_input_filename)
+    json_output = os.path.join(folder_name, json_output_name)
 
     with open(json_input, "r") as input_json:
         obj = json.load(input_json)
-        with open(json_name, "w") as output_json:
+        with open(json_output, "w") as output_json:
             json.dump(obj, output_json, indent=2, separators=(", ", ": "), cls=my_prettier)
 
 
