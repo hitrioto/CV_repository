@@ -3,7 +3,7 @@ numpy
 
 pydantic
 
-black
+ruff
 isort
 
 spyder
