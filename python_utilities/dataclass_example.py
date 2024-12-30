@@ -1,5 +1,6 @@
+"""Example classes here."""
+
 from dataclasses import dataclass
-from typing import List
 
 
 @dataclass
@@ -10,7 +11,7 @@ class PropertiesClass:
 @dataclass
 class GeometryClass:
     type: str
-    coordinates: List[float]
+    coordinates: list[float]
 
 
 @dataclass
@@ -23,4 +24,4 @@ class FeaturesClass:
 @dataclass
 class TestClass:
     type: str
-    features: List[FeaturesClass]
+    features: list[FeaturesClass]

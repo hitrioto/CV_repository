@@ -1,10 +1,12 @@
 import json
-from typing import Any, List, Optional
+from pathlib import Path
+
+Data = list | dict | int | float | str
 
 
-def get_object_by_keys(json_filename: str, keys: List[str]) -> Optional[List[Any]]:
+def get_object_by_keys(json_filename: str, keys: list[str]) -> Data | None:
     # Load the JSON data from the file
-    with open(json_filename, "r") as file:
+    with Path(json_filename).open(mode="r") as file:
         data = json.load(file)
 
     # Navigate through the nested dictionaries
@@ -16,5 +18,5 @@ def get_object_by_keys(json_filename: str, keys: List[str]) -> Optional[List[Any
         else:
             # Key doesn't exist, return an empty list
             return []
-    # Ensure the output is always a list
-    return [current_data] if isinstance(current_data, dict) else current_data
+
+    return current_data

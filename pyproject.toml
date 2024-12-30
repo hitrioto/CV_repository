@@ -7,6 +7,9 @@ name = "projectCV"
 version = "0.0.1"
 dynamic = ["dependencies"]
 
+[tool.setuptools]
+py-modules = []
+
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
 
@@ -15,5 +18,5 @@ line-length = 120
 
 [tool.ruff.lint]
 select = ["ALL"]
-ignore = ["D103"]
+ignore = ["D103", "D101", "D100", "FA102"]
 

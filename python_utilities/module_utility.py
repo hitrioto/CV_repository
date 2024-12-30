@@ -1,4 +1,5 @@
 import importlib.util
+import sys
 from pathlib import Path
 from types import ModuleType
 
@@ -8,7 +9,8 @@ def import_from_path(path_to_file) -> ModuleType:
 
     # Check if the spec was successfully created
     if spec is None or spec.loader is None:
-        raise ImportError(f"Could not load module spec for {path_to_file}")
+        msg = f"Could not load module spec for {path_to_file}"
+        raise ImportError(msg)
 
     # Now using ModuleType for the type hint of the module variable
     module: ModuleType = importlib.util.module_from_spec(spec)
@@ -19,22 +21,18 @@ def import_from_path(path_to_file) -> ModuleType:
     return module
 
 
-import sys
-from pathlib import Path
-
-
 def find_project_root():
     # Logic to find the project root (e.g., looking for pyproject.toml)
     current_path = Path(__file__).resolve()
     for parent in current_path.parents:
         if (parent / "pyproject.toml").exists():
             return parent
-    raise FileNotFoundError("Project root not found.")
+    msg = "Project root not found."
+    raise FileNotFoundError(msg)
 
 
 def get_dynamic_import_path(relative_path):
-    """
-    Constructs a full path for dynamic imports, adjusting based on the current working directory.
+    """Construct a full path for dynamic imports, adjusting based on the current working directory.
 
     :param relative_path: Path relative to the project root or the script's directory.
     :return: Adjusted full path as a string.
@@ -52,7 +50,6 @@ def get_dynamic_import_path(relative_path):
 
 
 if __name__ == "__main__":
-
     # Usage in your script
     dynamic_imported_file = get_dynamic_import_path("folder/some_file.py")
 

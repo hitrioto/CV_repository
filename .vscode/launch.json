@@ -4,9 +4,11 @@
         {
             "name": "Python: Current File",
             "type": "debugpy",
+            "python": ".venv/Scripts/python.exe",
             "request": "launch",
             "program": "${file}",
-            "console": "integratedTerminal"
+            "console": "integratedTerminal",
+            "justMyCode": true
         }
     ]
 }
