@@ -38,7 +38,9 @@ class {{ class_name }}:
 {%- endfor %}
 """
     template = Template(template_str)
-    class_definitions[class_name] = template.render(class_name=class_name, fields=fields)
+    class_definitions[class_name] = template.render(
+        class_name=class_name, fields=fields
+    )
 
 
 def generate_dataclass(json_data: str, class_name: str) -> str:
@@ -83,7 +85,7 @@ else:
 
 
 print(python_code)
-output_file = os.path.join(folder_name, "dataclass_example.py")
+output_file = os.path.join(folder_name, "dataclass_example_result.py")
 
 
 # Writing to file
