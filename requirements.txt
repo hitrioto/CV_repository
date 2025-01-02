@@ -9,3 +9,6 @@ isort
 spyder
 
 pyinstaller
+
+pygame
+pyautogui
