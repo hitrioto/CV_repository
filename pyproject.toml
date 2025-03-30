@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ProjectCV"
+version = "0.0.1"
+description = "This is a CV project."
+readme = "README.md"
+requires-python = ">=3.5"
+
+# list all dependencies
+dynamic = ["dependencies", "optional-dependencies"]
+
+[tool.setuptools]
+py-modules = []
+packages = ["python_utilities", "sim_utils"]
+
+[tool.setuptools.dynamic]
+dependencies = {file = ["requirements.txt"]}
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = ["D103", "D101", "D100", "FA102"]
+
+[project-urls]
+Homepage = ""
+

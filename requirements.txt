@@ -1,0 +1,14 @@
+pandas
+numpy
+
+pydantic
+
+ruff
+isort
+
+spyder
+
+pyinstaller
+
+pygame
+pyautogui

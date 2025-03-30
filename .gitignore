@@ -1,0 +1,11 @@
+build
+dist
+*.spec
+
+*.egg-info
+
+*__pychache__
+
+*.spec
+
+*.pyc
